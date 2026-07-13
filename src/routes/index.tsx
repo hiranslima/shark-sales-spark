@@ -3,7 +3,7 @@ import { FileText, Users, ShieldCheck } from "lucide-react";
 import xrayExecutive from "@/assets/xray-executive.jpg";
 
 // TODO: substitua pelo link real de checkout da Hotmart
-const CHECKOUT_URL = "#buy";
+const CHECKOUT_URL = "https://pay.hotmart.com/J102586899P";
 
 export const Route = createFileRoute("/")({
   component: Index,
