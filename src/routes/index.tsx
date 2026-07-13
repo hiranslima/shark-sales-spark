@@ -44,7 +44,7 @@ function CtaButton({
     <a
       href={href}
       className={`${baseStyles} ${variantStyles} ${className}`}
-      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      {...(isExternal ? { rel: "noopener noreferrer" } : {})}
     >
       {children}
     </a>
