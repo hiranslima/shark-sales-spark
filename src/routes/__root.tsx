@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
+const googleFonts = "https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400..800;1,400..800&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -77,20 +79,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Shark Experience — Diagnóstico Comercial" },
+      { name: "description", content: "Workshop ao vivo para empresários que vendem, mas sentem que o crescimento travou. Descubra o gargalo do seu comercial e saia com um plano de 90 dias." },
+      { name: "author", content: "Shark Experience" },
+      { property: "og:title", content: "Shark Experience — Diagnóstico Comercial" },
+      { property: "og:description", content: "Workshop ao vivo para empresários que vendem, mas sentem que o crescimento travou. Descubra o gargalo do seu comercial e saia com um plano de 90 dias." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@sharkexperience" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: googleFonts },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
