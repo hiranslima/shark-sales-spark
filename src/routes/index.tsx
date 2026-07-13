@@ -255,7 +255,7 @@ function Index() {
                 Investimento Único
               </div>
               <div className="text-6xl font-[family-name:var(--display-font)] font-extrabold tracking-tighter mb-8">
-                R$ 497<span className="text-xl">,00</span>
+                R$ 49<span className="text-xl">,90</span>
               </div>
               <CtaButton variant="primary" className="w-full text-xl">
                 Quero meu Diagnóstico
@@ -289,7 +289,8 @@ function Index() {
                 </h4>
                 <p className="text-muted-foreground">
                   Sim. Todos os inscritos recebem o acesso vitalício à gravação
-                  do workshop e materiais complementares.
+                  e as ferramentas utilizadas no workshop, além de materiais
+                  complementares.
                 </p>
               </div>
               <div className="pb-8 border-b border-border">
