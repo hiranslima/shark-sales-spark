@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Calendar, Mail, ShieldCheck } from "lucide-react";
 import xrayExecutive from "@/assets/xray-executive.jpg";
 
 // TODO: substitua pelo link real de checkout da Hotmart
