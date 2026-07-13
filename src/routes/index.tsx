@@ -153,6 +153,14 @@ function Index() {
                     <div className="size-1.5 bg-primary" />
                     Sensação de teto de crescimento
                   </li>
+                  <li className="flex items-center gap-3">
+                    <div className="size-1.5 bg-primary" />
+                    Equipe desengajada e sem processo claro
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="size-1.5 bg-primary" />
+                    Dependência excessiva do vendedor estrela
+                  </li>
                 </ul>
               </div>
             </div>
@@ -260,7 +268,7 @@ function Index() {
               <CtaButton variant="primary" className="w-full text-xl">
                 Quero meu Diagnóstico
               </CtaButton>
-              <div className="mt-6 font-mono text-[10px] text-muted-foreground uppercase">
+              <div className="mt-6 font-mono text-sm md:text-base text-muted-foreground uppercase">
                 📅 02 de Agosto • 10h Brasília • Online
               </div>
             </div>
