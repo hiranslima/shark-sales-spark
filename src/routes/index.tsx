@@ -107,7 +107,7 @@ function Index() {
               className="flex flex-col sm:flex-row gap-4"
               style={{ animationDelay: "400ms" }}
             >
-              <CtaButton>Garantir minha vaga agora</CtaButton>
+              <CtaButton href="#buy">Garantir minha vaga agora</CtaButton>
               <div className="flex flex-col justify-center font-mono text-[10px] text-muted-foreground uppercase">
                 <span>Vagas limitadas</span>
                 <span className="text-foreground">Acesso ao vivo + Gravação</span>
