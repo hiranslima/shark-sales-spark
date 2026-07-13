@@ -40,10 +40,27 @@ function CtaButton({
       : "bg-foreground text-background hover:bg-primary hover:text-primary-foreground";
 
   const isExternal = /^https?:\/\//i.test(href);
+
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isExternal) return;
+
+    event.preventDefault();
+    const checkoutWindow = window.open(href, "_blank", "noopener,noreferrer");
+
+    if (checkoutWindow) {
+      checkoutWindow.opener = null;
+      return;
+    }
+
+    window.location.href = href;
+  };
+
   return (
     <a
       href={href}
+      target={isExternal ? "_blank" : undefined}
       className={`${baseStyles} ${variantStyles} ${className}`}
+      onClick={handleClick}
       {...(isExternal ? { rel: "noopener noreferrer" } : {})}
     >
       {children}
