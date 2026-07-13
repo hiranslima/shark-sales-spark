@@ -39,8 +39,13 @@ function CtaButton({
       ? "bg-primary text-primary-foreground shadow-2xl shadow-primary/20 hover:brightness-110"
       : "bg-foreground text-background hover:bg-primary hover:text-primary-foreground";
 
+  const isExternal = /^https?:\/\//i.test(href);
   return (
-    <a href={href} className={`${baseStyles} ${variantStyles} ${className}`}>
+    <a
+      href={href}
+      className={`${baseStyles} ${variantStyles} ${className}`}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
       {children}
     </a>
   );
