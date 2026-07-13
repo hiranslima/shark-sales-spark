@@ -39,8 +39,13 @@ function CtaButton({
       ? "bg-primary text-primary-foreground shadow-2xl shadow-primary/20 hover:brightness-110"
       : "bg-foreground text-background hover:bg-primary hover:text-primary-foreground";
 
+  const isExternal = /^https?:\/\//i.test(href);
   return (
-    <a href={href} className={`${baseStyles} ${variantStyles} ${className}`}>
+    <a
+      href={href}
+      className={`${baseStyles} ${variantStyles} ${className}`}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
       {children}
     </a>
   );
@@ -102,7 +107,7 @@ function Index() {
               className="flex flex-col sm:flex-row gap-4"
               style={{ animationDelay: "400ms" }}
             >
-              <CtaButton>Garantir minha vaga agora</CtaButton>
+              <CtaButton href="#buy">Garantir minha vaga agora</CtaButton>
               <div className="flex flex-col justify-center font-mono text-[10px] text-muted-foreground uppercase">
                 <span>Vagas limitadas</span>
                 <span className="text-foreground">Acesso ao vivo + Gravação</span>
@@ -224,7 +229,7 @@ function Index() {
         </section>
 
         {/* Deliverables CTA Section */}
-        <section id="buy" className="py-32 bg-primary text-primary-foreground">
+        <section id="buy" className="scroll-mt-20 py-32 bg-primary text-primary-foreground">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="font-[family-name:var(--display-font)] text-5xl md:text-7xl font-extrabold tracking-tighter mb-12">
               SAIA COM UM PLANO PARA OS PRÓXIMOS{" "}
