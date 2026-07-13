@@ -313,7 +313,7 @@ function Index() {
             SHARK<span className="text-primary">EXP</span>
           </div>
           <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-            © 2026 SHARK EXPERIENCE CONSULTORIA COMERCIAL. TODOS OS DIREITOS
+            © 2026 SHARK CONSULTORIA. TODOS OS DIREITOS
             RESERVADOS.
           </div>
         </div>
