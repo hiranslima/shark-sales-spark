@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FileText, Users, ShieldCheck } from "lucide-react";
-import xrayExecutive from "@/assets/xray-executive.jpg";
+import consultorImage from "@/assets/diagnostico-consultor.png.asset.json";
 
 // TODO: substitua pelo link real de checkout da Hotmart
 const CHECKOUT_URL = "https://pay.hotmart.com/J102586899P";
@@ -138,8 +138,8 @@ function Index() {
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
             <div className="relative">
               <img
-                src={xrayExecutive}
-                alt="Executivo analisando dados complexos em um painel de vidro iluminado"
+                src={consultorImage.url}
+                alt="Consultor apresentando análise de vendas em um quadro branco"
                 width={800}
                 height={1000}
                 className="w-full h-auto rounded-sm object-cover"
