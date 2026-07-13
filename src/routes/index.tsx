@@ -52,7 +52,7 @@ function Index() {
       <nav className="fixed top-0 w-full z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-[family-name:var(--display-font)] font-extrabold tracking-tighter text-xl">
-            SHARK<span className="text-primary">EXP</span>
+            SHARK<span className="text-primary">CON</span>
           </div>
           <div className="hidden md:flex gap-8 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
             <span className="text-primary">[ Live Workshop ]</span>
@@ -310,7 +310,7 @@ function Index() {
       <footer className="py-12 px-6 border-t border-border">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="font-[family-name:var(--display-font)] font-extrabold tracking-tighter text-lg">
-            SHARK<span className="text-primary">EXP</span>
+            SHARK<span className="text-primary">CON</span>
           </div>
           <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
             © 2026 SHARK CONSULTORIA. TODOS OS DIREITOS
