@@ -81,7 +81,7 @@ function Index() {
               className="inline-block font-mono text-xs text-primary border border-primary/30 px-3 py-1 mb-8"
               style={{ animationDelay: "100ms" }}
             >
-              DIAGNÓSTICO EXECUTIVO 2026
+              DIAGNÓSTICO COMERCIAL 2026
             </div>
             <h1
               className="font-[family-name:var(--display-font)] text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.85] text-balance mb-10"
@@ -95,7 +95,7 @@ function Index() {
               style={{ animationDelay: "300ms" }}
             >
               Entenda por que sua empresa vende, mas não cresce. Um workshop
-              100% prático para empresários que atingiram o teto de vidro.
+              100% prático para empresários que querem subir o nível
             </p>
             <div
               className="flex flex-col sm:flex-row gap-4"
