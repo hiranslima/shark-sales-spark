@@ -229,7 +229,7 @@ function Index() {
         </section>
 
         {/* Deliverables CTA Section */}
-        <section id="buy" className="py-32 bg-primary text-primary-foreground">
+        <section id="buy" className="scroll-mt-20 py-32 bg-primary text-primary-foreground">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="font-[family-name:var(--display-font)] text-5xl md:text-7xl font-extrabold tracking-tighter mb-12">
               SAIA COM UM PLANO PARA OS PRÓXIMOS{" "}
