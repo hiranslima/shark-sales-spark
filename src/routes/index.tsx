@@ -272,6 +272,20 @@ function Index() {
               <div className="mt-6 font-mono text-sm md:text-base text-muted-foreground uppercase">
                 📅 02 de Agosto • 10h Brasília • Online
               </div>
+              <div className="mt-8 pt-8 border-t border-border grid grid-cols-3 gap-4 text-center">
+                <div className="flex flex-col items-center gap-2">
+                  <Calendar className="size-6 text-primary" strokeWidth={2} />
+                  <span className="text-xs md:text-sm font-medium text-foreground">1 Ano de Acesso</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Mail className="size-6 text-primary" strokeWidth={2} />
+                  <span className="text-xs md:text-sm font-medium text-foreground">1 ano de Suporte por e-mail</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <ShieldCheck className="size-6 text-primary" strokeWidth={2} />
+                  <span className="text-xs md:text-sm font-medium text-foreground">7 dias de Garantia</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
