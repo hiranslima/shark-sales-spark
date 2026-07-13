@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Calendar, Mail, ShieldCheck } from "lucide-react";
+import { Calendar, Users, ShieldCheck } from "lucide-react";
 import xrayExecutive from "@/assets/xray-executive.jpg";
 
 // TODO: substitua pelo link real de checkout da Hotmart
@@ -278,8 +278,8 @@ function Index() {
                   <span className="text-xs md:text-sm font-medium text-foreground">1 Ano de Acesso</span>
                 </div>
                 <div className="flex flex-col items-center gap-2">
-                  <Mail className="size-6 text-primary" strokeWidth={2} />
-                  <span className="text-xs md:text-sm font-medium text-foreground">1 ano de Suporte por e-mail</span>
+                  <Users className="size-6 text-primary" strokeWidth={2} />
+                  <span className="text-xs md:text-sm font-medium text-foreground">Acesso ao Grupo no Whatsapp</span>
                 </div>
                 <div className="flex flex-col items-center gap-2">
                   <ShieldCheck className="size-6 text-primary" strokeWidth={2} />
