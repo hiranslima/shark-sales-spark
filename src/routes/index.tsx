@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FileText, Users, ShieldCheck } from "lucide-react";
-import consultorImage from "@/assets/diagnostico-consultor.png.asset.json";
+const consultorImage = { url: "/diagnostico-consultor.png" };
 
 // TODO: substitua pelo link real de checkout da Hotmart
 const CHECKOUT_URL = "https://pay.hotmart.com/J102586899P";
