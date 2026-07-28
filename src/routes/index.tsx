@@ -1,18 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FileText, Users, ShieldCheck } from "lucide-react";
+import { useEffect, useState } from "react";
+
 const consultorImage = { url: "/diagnostico-consultor.png" };
 
-// TODO: substitua pelo link real de checkout da Hotmart
 const CHECKOUT_URL = "https://pay.hotmart.com/J102586899P";
+const EVENT_DATE = new Date("2026-08-02T10:00:00-03:00").getTime();
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Diagnóstico Comercial Shark Experience" },
-      { name: "description", content: "Workshop ao vivo e 100% prático para empresários que vendem, mas sentem que o crescimento travou. Saia com um plano de ação de 90 dias." },
-      { property: "og:title", content: "Diagnóstico Comercial Shark Experience" },
-      { property: "og:description", content: "Workshop ao vivo e 100% prático para empresários que vendem, mas sentem que o crescimento travou." },
+      {
+        title:
+          "Diagnóstico Comercial Shark | Descubra o gargalo que trava sua empresa",
+      },
+      {
+        name: "description",
+        content:
+          "Diagnóstico Comercial ao vivo para empresas que já vendem mas pararam de crescer. Descubra onde seu processo comercial perde dinheiro e saia com um plano de 90 dias.",
+      },
+      {
+        name: "keywords",
+        content:
+          "diagnóstico comercial, consultoria comercial, processos comerciais, crescimento empresarial, previsibilidade de vendas",
+      },
+      {
+        property: "og:title",
+        content: "Diagnóstico Comercial Shark Experience",
+      },
+      {
+        property: "og:description",
+        content:
+          "Descubra o gargalo que está impedindo sua empresa de crescer. Diagnóstico prático, ao vivo, com plano de ação para 90 dias.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -21,330 +41,695 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-function CtaButton({
+function CheckoutLink({
   children,
-  href = CHECKOUT_URL,
-  variant = "primary",
   className = "",
 }: {
   children: React.ReactNode;
-  href?: string;
-  variant?: "primary" | "secondary";
   className?: string;
 }) {
-  const baseStyles =
-    "inline-flex items-center justify-center px-10 py-5 text-lg font-bold uppercase tracking-tighter transition-all";
-  const variantStyles =
-    variant === "primary"
-      ? "bg-primary text-primary-foreground shadow-2xl shadow-primary/20 hover:brightness-110"
-      : "bg-foreground text-background hover:bg-primary hover:text-primary-foreground";
-
-  const isExternal = /^https?:\/\//i.test(href);
-
   return (
     <a
-      href={href}
-      target={isExternal ? "_blank" : undefined}
-      className={`${baseStyles} ${variantStyles} ${className}`}
-      {...(isExternal ? { rel: "noopener noreferrer" } : {})}
+      href={CHECKOUT_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center justify-center font-bold uppercase tracking-tighter bg-primary text-primary-foreground transition-[filter] hover:brightness-110 ${className}`}
     >
       {children}
     </a>
   );
 }
 
+function pad(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+function Countdown() {
+  const [left, setLeft] = useState(0);
+
+  useEffect(() => {
+    const tick = () =>
+      setLeft(Math.max(0, Math.floor((EVENT_DATE - Date.now()) / 1000)));
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const units = [
+    { label: "Dias", value: Math.floor(left / 86400) },
+    { label: "Horas", value: Math.floor(left / 3600) % 24 },
+    { label: "Minutos", value: Math.floor(left / 60) % 60 },
+    { label: "Segundos", value: left % 60 },
+  ];
+
+  return (
+    <div className="flex flex-wrap gap-3 border-t border-border pt-7">
+      {units.map((u) => (
+        <div
+          key={u.label}
+          className="flex-[1_1_110px] border border-border bg-card px-[18px] py-4"
+        >
+          <div className="font-[family-name:var(--display-font)] text-4xl font-extrabold tracking-tighter leading-none text-primary tabular-nums">
+            {pad(u.value)}
+          </div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground mt-1.5">
+            {u.label}
+          </div>
+        </div>
+      ))}
+      <div className="flex-[2_1_220px] flex items-center px-[18px] py-4 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground leading-relaxed">
+        As inscrições fecham quando a sala abrir, dia 02 às 10h.
+      </div>
+    </div>
+  );
+}
+
+const leaks = [
+  {
+    t: "Leads esquecidos",
+    d: "Entraram, ninguém retornou, viraram cliente do concorrente.",
+  },
+  {
+    t: "Atendimento lento",
+    d: "Quem responde primeiro costuma fechar. Sua empresa responde quando dá.",
+  },
+  {
+    t: "Orçamentos sem retorno",
+    d: 'Propostas paradas no "vou pensar" há semanas.',
+  },
+  {
+    t: "Vendedor sem processo",
+    d: "Cada um improvisa, e o desconto vira o único argumento.",
+  },
+  {
+    t: "Falta de indicadores",
+    d: "Você sabe quanto vendeu. Não sabe quanto deixou de vender.",
+  },
+  {
+    t: "Dependência de uma pessoa",
+    d: "Se o melhor vendedor sai, o resultado sai junto.",
+  },
+];
+
+const pillars = [
+  {
+    num: "01.",
+    title: "Atração",
+    desc: "De onde vêm seus clientes e quanto disso você controla.",
+  },
+  {
+    num: "02.",
+    title: "Conversão",
+    desc: "Onde a oportunidade morre entre o primeiro contato e o fechamento.",
+  },
+  {
+    num: "03.",
+    title: "Retenção",
+    desc: "Quanto vale um cliente ao longo do tempo e quanto disso você perde.",
+  },
+  {
+    num: "04.",
+    title: "Gestão",
+    desc: "Quais números você precisa olhar toda semana e hoje não olha.",
+  },
+  {
+    num: "05.",
+    title: "Cultura",
+    desc: "Por que o time não repete o que funciona.",
+  },
+];
+
+const steps = [
+  {
+    n: "1",
+    t: "Mapeamento",
+    d: "Como sua empresa vende hoje, do primeiro contato ao pós venda.",
+  },
+  {
+    n: "2",
+    t: "Identificação",
+    d: "Onde estão os gargalos e qual deles custa mais caro.",
+  },
+  {
+    n: "3",
+    t: "Plano de ação",
+    d: "O que fazer, em que ordem, com quem da sua equipe.",
+  },
+  {
+    n: "4",
+    t: "Prioridades",
+    d: "O recorte dos próximos 90 dias, para executar sem travar.",
+  },
+];
+
+const deliverables = [
+  "Diagnóstico comercial do seu negócio",
+  "Análise do seu processo de vendas atual",
+  "Identificação do gargalo principal",
+  "Plano de crescimento para 90 dias",
+  "Ordem de prioridade do que executar",
+  "Recomendações para o seu cenário",
+];
+
+const stack = [
+  ["Diagnóstico ao vivo de 3 horas", "R$ 1.200"],
+  ["Análise do processo comercial", "R$ 890"],
+  ["Plano de ação para 90 dias", "R$ 690"],
+  ["Material de apoio e ferramentas", "R$ 390"],
+  ["Gravação vitalícia", "R$ 290"],
+  ["Grupo no WhatsApp com os inscritos", "R$ 190"],
+];
+
+const faqs = [
+  [
+    "Quanto tempo dura?",
+    "Cerca de 3 horas ao vivo, com análise prática e espaço para dúvidas.",
+  ],
+  [
+    "É online ou presencial?",
+    "Online e ao vivo, dia 02 de agosto às 10h de Brasília.",
+  ],
+  [
+    "É individual? Preciso levar a equipe?",
+    "O acesso é individual e o dono consegue aplicar sozinho. Levar quem lidera o comercial acelera a execução, mas não é obrigatório.",
+  ],
+  [
+    "Serve para qualquer empresa?",
+    "Serve para empresas que já vendem e querem organizar o processo. Quem ainda não faturou não vai aproveitar.",
+  ],
+  [
+    "O que exatamente eu recebo?",
+    "Diagnóstico do seu processo, identificação do gargalo principal, plano de ação para 90 dias, material de apoio, grupo no WhatsApp e a gravação.",
+  ],
+  [
+    "E se eu não puder assistir ao vivo?",
+    "A gravação fica com você para sempre. Quem está ao vivo leva o próprio caso para a análise.",
+  ],
+  [
+    "E se eu não gostar?",
+    "Você tem 7 dias para pedir o reembolso e recebe o valor de volta.",
+  ],
+];
+
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 border-b border-border bg-background/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <nav className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
           <div className="font-[family-name:var(--display-font)] font-extrabold tracking-tighter text-xl">
             SHARK<span className="text-primary">CON</span>
           </div>
-          <div className="hidden md:flex gap-8 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            <span className="text-primary">[ Live Workshop ]</span>
+          <div className="hidden md:flex gap-7 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+            <span className="text-primary animate-pulse">[ Ao vivo ]</span>
             <span>02.08.2026</span>
             <span>10:00 BRT</span>
           </div>
           <a
-            href="#buy"
-            className="bg-foreground text-background px-5 py-2 text-xs font-bold uppercase tracking-tighter hover:bg-primary hover:text-primary-foreground transition-colors"
+            href={CHECKOUT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-foreground text-background px-5 py-2.5 text-xs font-bold uppercase tracking-tighter whitespace-nowrap transition-colors hover:bg-primary hover:text-primary-foreground"
           >
-            Reservar Vaga
+            Reservar minha vaga
           </a>
         </div>
       </nav>
 
-      <main className="pt-16">
-        {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex flex-col justify-center px-6 overflow-hidden">
-          <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-            <div className="absolute top-0 left-1/4 w-px h-full bg-primary/30 scan-line" />
-            <div className="absolute inset-0 grid-xray" />
-          </div>
-
-          <div className="relative z-10 max-w-5xl mx-auto w-full reveal-stagger">
-            <div
-              className="inline-block font-mono text-xs text-primary border border-primary/30 px-3 py-1 mb-8"
-              style={{ animationDelay: "100ms" }}
-            >
-              DIAGNÓSTICO COMERCIAL 2026
-            </div>
-            <h1
-              className="font-[family-name:var(--display-font)] text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.85] text-balance mb-10"
-              style={{ animationDelay: "200ms" }}
-            >
-              PARE DE VENDER <br />
-              <span className="text-primary italic">NO ESCURO.</span>
-            </h1>
-            <p
-              className="max-w-2xl text-xl md:text-2xl text-muted-foreground leading-relaxed mb-12"
-              style={{ animationDelay: "300ms" }}
-            >
-              Entenda por que sua empresa vende, mas não cresce. Um workshop
-              100% prático para empresários que querem subir o nível
-            </p>
-            <div
-              className="flex flex-col sm:flex-row gap-4"
-              style={{ animationDelay: "400ms" }}
-            >
-              <CtaButton href="#buy">Garantir minha vaga agora</CtaButton>
-              <div className="flex flex-col justify-center font-mono text-[10px] text-muted-foreground uppercase">
-                <span>Vagas limitadas</span>
-                <span className="text-foreground">Acesso ao vivo + Gravação</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* The Problem / X-Ray */}
-        <section className="py-32 bg-white text-background">
-          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
-            <div className="relative">
-              <img
-                src={consultorImage.url}
-                alt="Consultor apresentando análise de vendas em um quadro branco"
-                width={800}
-                height={1000}
-                className="w-full h-auto rounded-sm object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div>
-              <h2 className="font-[family-name:var(--display-font)] text-4xl md:text-5xl font-extrabold tracking-tighter mb-8 leading-tight">
-                SEU ESFORÇO É ALTO,
-                <br />
-                MAS O RETORNO É{" "}
-                <span className="text-primary">IMPREVISÍVEL.</span>
-              </h2>
-              <div className="space-y-6 text-lg opacity-80">
-                <p>
-                  Você já vende, mas sente que o crescimento travou. Sem
-                  estrutura e metas claras, o dono vive de apagar incêndios
-                  enquanto a equipe vende no instinto.
-                </p>
-                <p className="font-bold">
-                  O resultado? Dinheiro escapando por gargalos que você ainda
-                  não enxergou.
-                </p>
-                <ul className="space-y-4 pt-4 font-mono text-sm">
-                  <li className="flex items-center gap-3">
-                    <div className="size-1.5 bg-primary" />
-                    Vendas que oscilam sem motivo aparente
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="size-1.5 bg-primary" />
-                    Falta de método comercial replicável
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="size-1.5 bg-primary" />
-                    Sensação de teto de crescimento
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="size-1.5 bg-primary" />
-                    Equipe desengajada e sem processo claro
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="size-1.5 bg-primary" />
-                    Dependência excessiva do vendedor estrela
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* The 5 Pillars Grid */}
-        <section className="py-32 bg-background border-y border-border">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="mb-20">
-              <span className="font-mono text-xs text-primary uppercase tracking-widest">
-                Metodologia Shark
+      <main>
+        {/* Hero */}
+        <section className="relative px-6 pt-24 pb-20 overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.12] pointer-events-none grid-xray" />
+          <div className="absolute -top-44 left-1/2 -translate-x-1/2 w-[900px] h-[500px] pointer-events-none bg-[radial-gradient(ellipse_at_center,var(--primary),transparent_65%)] opacity-20" />
+          <div className="relative max-w-5xl mx-auto flex flex-col gap-9">
+            <div className="flex flex-wrap gap-3 items-center">
+              <span className="font-mono text-[11px] text-primary border border-primary/40 px-3 py-1.5 uppercase tracking-[0.1em]">
+                Diagnóstico Comercial 2026
               </span>
-              <h2 className="font-[family-name:var(--display-font)] text-5xl font-extrabold tracking-tighter mt-4">
-                OS 5 PILARES DA VIRADA
-              </h2>
+              <span className="font-mono text-[11px] text-muted-foreground border border-border px-3 py-1.5 uppercase tracking-[0.1em]">
+                3 horas ao vivo · online
+              </span>
             </div>
+            <h1 className="font-[family-name:var(--display-font)] text-[clamp(2.75rem,7.5vw,5.9rem)] font-extrabold tracking-[-0.055em] leading-[0.88] text-balance">
+              DESCUBRA O GARGALO QUE IMPEDE SUA EMPRESA DE{" "}
+              <span className="text-primary">CRESCER.</span>
+            </h1>
+            <p className="max-w-[700px] text-[clamp(1.125rem,2.2vw,1.45rem)] leading-relaxed text-muted-foreground">
+              Em um diagnóstico prático você identifica exatamente onde seu
+              comercial perde dinheiro e sai com um plano de ação para os
+              próximos 90 dias.
+            </p>
+            <div className="flex flex-wrap gap-7 items-center">
+              <CheckoutLink className="px-10 py-5 text-[17px] shadow-2xl shadow-primary/30">
+                Quero descobrir meu gargalo
+              </CheckoutLink>
+              <div className="grid grid-cols-2 gap-x-7 gap-y-2 text-sm text-muted-foreground">
+                <span>✓ Diagnóstico do seu caso</span>
+                <span>✓ Plano de ação</span>
+                <span>✓ Aplicação imediata</span>
+                <span>✓ Sem teoria desnecessária</span>
+              </div>
+            </div>
+            <Countdown />
+          </div>
+        </section>
 
-            <div className="grid md:grid-cols-5 gap-px bg-border border border-border">
-              {[
-                {
-                  num: "01.",
-                  title: "Atração",
-                  desc: "Como gerar demanda qualificada sem depender da sorte.",
-                },
-                {
-                  num: "02.",
-                  title: "Conversão",
-                  desc: "O método de fechamento que não deixa dinheiro na mesa.",
-                },
-                {
-                  num: "03.",
-                  title: "Retenção",
-                  desc: "Maximizando o LTV e transformando clientes em advogados.",
-                },
-                {
-                  num: "04.",
-                  title: "Gestão",
-                  desc: "Indicadores e KPIs reais que mostram a saúde do negócio.",
-                },
-                {
-                  num: "05.",
-                  title: "Cultura",
-                  desc: "Treinamento e mentalidade para uma equipe comercial de elite.",
-                },
-              ].map((pillar) => (
+        {/* Strip */}
+        <div className="border-y border-border bg-card px-6 py-3.5">
+          <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-x-10 gap-y-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+            <span>02 de agosto · 10h Brasília</span>
+            <span>3 horas ao vivo</span>
+            <span>Gravação vitalícia</span>
+            <span className="text-primary">R$ 49,90</span>
+          </div>
+        </div>
+
+        {/* O verdadeiro problema */}
+        <section className="py-28 px-6 bg-white text-background">
+          <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_0.8fr] gap-14 items-start">
+            <div className="flex flex-col gap-9">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+                O verdadeiro problema
+              </span>
+              <h2 className="font-[family-name:var(--display-font)] text-[clamp(2rem,5vw,3.5rem)] font-extrabold tracking-[-0.05em] leading-[0.95] text-balance">
+                TALVEZ VOCÊ NÃO PRECISE DE MAIS CLIENTES.
+              </h2>
+              <p className="text-xl leading-relaxed">
+                Quando as vendas param, a conta quase sempre cai no mesmo lugar.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {["É o marketing", "É o tráfego", "É a equipe", "É o mercado"].map(
+                  (t) => (
+                    <span
+                      key={t}
+                      className="border border-background/20 px-[18px] py-2.5 text-[15px]"
+                    >
+                      {t}
+                    </span>
+                  ),
+                )}
+              </div>
+              <p className="text-xl leading-relaxed font-bold max-w-[760px]">
+                Na maioria das empresas que já vendem, o problema está antes
+                disso. Está no processo comercial.
+              </p>
+              <div className="flex flex-wrap gap-5">
+                {[
+                  [
+                    "Atendimento",
+                    "O lead chega e demora horas para receber resposta.",
+                  ],
+                  [
+                    "Follow up",
+                    "O orçamento é enviado e ninguém volta a falar com o cliente.",
+                  ],
+                  [
+                    "Conversão",
+                    "Cada vendedor fecha de um jeito e nada disso é replicável.",
+                  ],
+                  ["Gestão", "Não existe indicador. Existe percepção."],
+                ].map(([t, d]) => (
+                  <div
+                    key={t}
+                    className="flex-[1_1_220px] border-t-[3px] border-primary pt-4"
+                  >
+                    <div className="font-bold text-[17px] mb-1.5">{t}</div>
+                    <p className="text-[15px] leading-relaxed opacity-75">{d}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-lg leading-relaxed opacity-80 max-w-[760px]">
+                Investir mais em marketing antes de arrumar isso é colocar água
+                em um balde furado.
+              </p>
+            </div>
+            <img
+              src={consultorImage.url}
+              alt="Consultor apresentando análise do processo comercial em um quadro branco"
+              width={800}
+              height={1000}
+              className="w-full h-auto object-cover rounded-sm"
+              loading="lazy"
+            />
+          </div>
+        </section>
+
+        {/* Custo invisível */}
+        <section className="py-28 px-6 border-b border-border">
+          <div className="max-w-5xl mx-auto flex flex-col gap-9">
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+              O custo invisível
+            </span>
+            <h2 className="font-[family-name:var(--display-font)] text-[clamp(2rem,5vw,3.5rem)] font-extrabold tracking-[-0.05em] leading-[0.95] text-balance">
+              O DINHEIRO NÃO SOME DE UMA VEZ. SOME UM POUCO POR DIA.
+            </h2>
+            <div className="flex flex-wrap gap-px bg-border border border-border">
+              {leaks.map((l) => (
                 <div
-                  key={pillar.num}
-                  className="bg-background p-8 group hover:bg-primary/5 transition-colors"
+                  key={l.t}
+                  className="flex-[1_1_240px] bg-background p-7"
                 >
-                  <span className="font-mono text-primary text-sm">{pillar.num}</span>
-                  <h3 className="font-[family-name:var(--display-font)] font-bold text-xl mt-4 mb-2 uppercase">
-                    {pillar.title}
+                  <div className="font-bold mb-2">{l.t}</div>
+                  <p className="text-[15px] leading-relaxed text-muted-foreground">
+                    {l.d}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[19px] leading-relaxed max-w-[760px]">
+              Nenhum desses itens aparece no extrato. Todos aparecem no
+              faturamento que não veio.
+            </p>
+            <CheckoutLink className="self-start px-9 py-[18px] text-base">
+              Quero meu diagnóstico
+            </CheckoutLink>
+          </div>
+        </section>
+
+        {/* Método */}
+        <section className="py-28 px-6 border-b border-border">
+          <div className="max-w-5xl mx-auto flex flex-col gap-8">
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+              O método
+            </span>
+            <h2 className="font-[family-name:var(--display-font)] text-[clamp(2rem,5vw,3.5rem)] font-extrabold tracking-[-0.05em] leading-[0.95] text-balance">
+              DIAGNÓSTICO SHARK: ANTES DE INVESTIR MAIS, DESCUBRA ONDE ESTÁ O
+              DESPERDÍCIO.
+            </h2>
+            <p className="text-[19px] leading-relaxed max-w-[760px] text-muted-foreground">
+              A maioria dos treinamentos entrega técnica de vendas. O
+              Diagnóstico faz o contrário: primeiro examina a sua operação,
+              depois indica o que mexer. Você não sai com cinco tarefas novas.
+              Sai com uma, a que destrava as outras.
+            </p>
+            <p className="text-[19px] leading-relaxed max-w-[760px] text-muted-foreground">
+              O exame passa por cinco pontos. Todo comercial que travou, travou
+              em um deles.
+            </p>
+            <div className="flex flex-wrap gap-px bg-border border border-border">
+              {pillars.map((p) => (
+                <div
+                  key={p.num}
+                  className="flex-[1_1_200px] bg-background p-[30px] transition-colors hover:bg-primary/5"
+                >
+                  <span className="font-mono text-[13px] text-primary">
+                    {p.num}
+                  </span>
+                  <h3 className="font-[family-name:var(--display-font)] font-bold text-xl uppercase tracking-[-0.03em] mt-3.5 mb-2">
+                    {p.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground">{pillar.desc}</p>
+                  <p className="text-[15px] leading-relaxed text-muted-foreground">
+                    {p.desc}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Deliverables CTA Section */}
-        <section id="buy" className="scroll-mt-20 py-32 bg-primary text-primary-foreground">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="font-[family-name:var(--display-font)] text-5xl md:text-7xl font-extrabold tracking-tighter mb-12">
-              SAIA COM UM PLANO PARA OS PRÓXIMOS{" "}
-              <span className="underline decoration-4 underline-offset-8">
-                90 DIAS.
-              </span>
+        {/* Como funciona */}
+        <section className="py-28 px-6 border-b border-border">
+          <div className="max-w-5xl mx-auto flex flex-col gap-10">
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+              Como funciona
+            </span>
+            <h2 className="font-[family-name:var(--display-font)] text-[clamp(2rem,5vw,3.5rem)] font-extrabold tracking-[-0.05em] leading-[0.95]">
+              QUATRO ETAPAS. TRÊS HORAS.
             </h2>
-            <div className="grid sm:grid-cols-2 gap-8 text-left mb-16">
-              <div className="flex gap-4 items-start">
-                <div className="mt-1 size-5 bg-white flex-shrink-0" />
-                <p className="font-bold uppercase tracking-tight">
-                  Raio-X completo do seu processo de vendas atual
+            <div className="flex flex-wrap gap-5">
+              {steps.map((s) => (
+                <div
+                  key={s.n}
+                  className="flex-[1_1_210px] bg-card border border-border p-7"
+                >
+                  <div className="font-[family-name:var(--display-font)] text-[44px] font-extrabold tracking-tighter leading-none text-primary">
+                    {s.n}
+                  </div>
+                  <div className="font-bold text-lg mt-3 mb-1.5">{s.t}</div>
+                  <p className="text-[15px] leading-relaxed text-muted-foreground">
+                    {s.d}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <CheckoutLink className="self-start px-9 py-[18px] text-base">
+              Reservar minha vaga
+            </CheckoutLink>
+          </div>
+        </section>
+
+        {/* O que você recebe */}
+        <section className="py-28 px-6 border-b border-border">
+          <div className="max-w-5xl mx-auto flex flex-col gap-9">
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+              O que você recebe
+            </span>
+            <h2 className="font-[family-name:var(--display-font)] text-[clamp(2rem,5vw,3.5rem)] font-extrabold tracking-[-0.05em] leading-[0.95]">
+              O QUE SAI DAS TRÊS HORAS.
+            </h2>
+            <div className="flex flex-wrap gap-4">
+              {deliverables.map((d) => (
+                <div
+                  key={d}
+                  className="flex-[1_1_280px] flex gap-3.5 items-start border border-border p-[22px]"
+                >
+                  <div className="size-3.5 bg-primary flex-shrink-0 mt-1" />
+                  <span className="text-base leading-snug">{d}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Para quem é */}
+        <section className="py-28 px-6 border-b border-border">
+          <div className="max-w-5xl mx-auto flex flex-col gap-9">
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+              Para quem é
+            </span>
+            <h2 className="font-[family-name:var(--display-font)] text-[clamp(2rem,5vw,3.5rem)] font-extrabold tracking-[-0.05em] leading-[0.95]">
+              ANTES DE COMPRAR, VEJA SE É O SEU CASO.
+            </h2>
+            <div className="flex flex-wrap gap-5">
+              <div className="flex-[1_1_300px] border border-primary/35 bg-primary/5 p-8">
+                <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-primary mb-5">
+                  É para você
+                </div>
+                <div className="flex flex-col gap-3.5 text-base leading-relaxed">
+                  <div>✔ Empresas que cresceram e travaram</div>
+                  <div>✔ Empresários que querem previsibilidade</div>
+                  <div>✔ Negócios que dependem de indicação</div>
+                  <div>✔ Quem quer vender mais sem aumentar o orçamento</div>
+                  <div>✔ Quem prefere ouvir o diagnóstico a ouvir elogio</div>
+                </div>
+              </div>
+              <div className="flex-[1_1_300px] border border-border p-8">
+                <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground mb-5">
+                  Não é para você
+                </div>
+                <div className="flex flex-col gap-3.5 text-base leading-relaxed text-muted-foreground">
+                  <div>✘ Quem ainda não tirou a empresa do papel</div>
+                  <div>✘ Quem procura fórmula mágica</div>
+                  <div>✘ Quem não pretende executar nada depois</div>
+                  <div>✘ Quem acredita que a culpa é sempre do mercado</div>
+                  <div>✘ Empresas sem interesse em mexer no processo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Resultados */}
+        <section className="py-28 px-6 border-b border-border">
+          <div className="max-w-5xl mx-auto flex flex-col gap-7">
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+              Resultados
+            </span>
+            <h2 className="font-[family-name:var(--display-font)] text-[clamp(2rem,5vw,3.5rem)] font-extrabold tracking-[-0.05em] leading-[0.95]">
+              O QUE MUDA DEPOIS DO DIAGNÓSTICO.
+            </h2>
+            <div className="flex flex-wrap gap-5">
+              {[
+                [
+                  "Antes",
+                  "Você acha que o problema é falta de lead e aumenta o investimento em anúncio.",
+                ],
+                [
+                  "Depois",
+                  "Você sabe qual etapa perde oportunidade e corrige antes de gastar mais.",
+                ],
+                [
+                  "Antes",
+                  "O time vende por instinto e o resultado depende do humor do mês.",
+                ],
+                [
+                  "Depois",
+                  "Existe uma ordem clara de prioridades e um plano para os 90 dias.",
+                ],
+              ].map(([t, d], i) => (
+                <div
+                  key={i}
+                  className="flex-[1_1_240px] bg-card border border-border p-7"
+                >
+                  <div className="font-bold text-[17px] mb-2">{t}</div>
+                  <p className="text-[15px] leading-relaxed text-muted-foreground">
+                    {d}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Oferta */}
+        <section
+          id="buy"
+          className="scroll-mt-20 py-28 px-6 bg-primary text-primary-foreground"
+        >
+          <div className="max-w-5xl mx-auto">
+            <h2 className="font-[family-name:var(--display-font)] text-[clamp(2.25rem,6vw,4.5rem)] font-extrabold tracking-[-0.055em] leading-[0.9] text-center text-balance mb-5">
+              UM DIAGNÓSTICO CUSTA MENOS QUE UM MÊS DE ERRO.
+            </h2>
+            <p className="text-center max-w-[620px] mx-auto mb-14 text-lg leading-relaxed font-semibold">
+              Você não está comprando um workshop. Está comprando clareza sobre
+              onde sua empresa perde dinheiro.
+            </p>
+
+            <div className="bg-background text-foreground p-11 max-w-[560px] mx-auto">
+              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary mb-5">
+                O que está incluso
+              </div>
+              <div className="flex flex-col gap-3.5 text-[15px] leading-snug mb-6">
+                {stack.map(([label, price]) => (
+                  <div key={label} className="flex justify-between gap-4">
+                    <span>{label}</span>
+                    <span className="text-muted-foreground line-through">
+                      {price}
+                    </span>
+                  </div>
+                ))}
+                <div className="flex justify-between gap-4 pt-3.5 border-t border-border">
+                  <span className="font-bold">Valor total</span>
+                  <span className="font-bold text-muted-foreground line-through">
+                    R$ 3.650
+                  </span>
+                </div>
+              </div>
+
+              <div className="border-t border-border pt-6">
+                <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary mb-2.5">
+                  Você paga hoje
+                </div>
+                <div className="flex items-baseline flex-wrap gap-3.5 mb-2">
+                  <div className="font-[family-name:var(--display-font)] text-6xl font-extrabold tracking-[-0.055em] leading-none">
+                    R$ 49<span className="text-[22px]">,90</span>
+                  </div>
+                  <span className="font-mono text-xs uppercase tracking-[0.12em] text-primary">
+                    98% de desconto
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed text-muted-foreground mb-6">
+                  Uma hora de consultoria comercial não sai por menos de R$ 800.
+                  Aqui você paga menos que um almoço de negócios.
                 </p>
               </div>
-              <div className="flex gap-4 items-start">
-                <div className="mt-1 size-5 bg-white flex-shrink-0" />
-                <p className="font-bold uppercase tracking-tight">
-                  Workshop ao vivo com análise prática do comercial
-                </p>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="mt-1 size-5 bg-white flex-shrink-0" />
-                <p className="font-bold uppercase tracking-tight">
-                  Clareza absoluta sobre o gargalo principal
-                </p>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="mt-1 size-5 bg-white flex-shrink-0" />
-                <p className="font-bold uppercase tracking-tight">
-                  Plano de ação aplicável nos próximos 90 dias
-                </p>
+
+              <CheckoutLink className="w-full py-5.5 px-6 text-[19px] shadow-2xl shadow-primary/40">
+                Quero meu diagnóstico
+              </CheckoutLink>
+
+              <div className="mt-4.5 text-center font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                02 de agosto · 10h Brasília · Online
               </div>
             </div>
 
-            <div className="bg-background p-10 text-foreground inline-block w-full max-w-lg">
-              <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">
-                Investimento Único
-              </div>
-              <div className="text-6xl font-[family-name:var(--display-font)] font-extrabold tracking-tighter mb-8">
-                R$ 49<span className="text-xl">,90</span>
-              </div>
-              <CtaButton variant="primary" className="w-full text-xl">
-                Quero meu Diagnóstico
-              </CtaButton>
-              <div className="mt-6 font-mono text-sm md:text-base text-muted-foreground uppercase">
-                📅 02 de Agosto • 10h Brasília • Online
-              </div>
-              <div className="mt-8 pt-8 border-t border-border grid grid-cols-3 gap-4 text-center">
-                <div className="flex flex-col items-center gap-2">
-                  <FileText className="size-6 text-primary" strokeWidth={2} />
-                  <span className="text-xs md:text-sm font-medium text-foreground">Material de Apoio</span>
+            <p className="text-center max-w-[560px] mx-auto mt-7 text-[15px] leading-relaxed font-semibold">
+              Garantia de 7 dias. Assistiu, achou que não valeu, devolvemos o
+              valor. Sem formulário e sem entrevista de saída.
+            </p>
+          </div>
+        </section>
+
+        {/* Depois da compra */}
+        <section className="py-28 px-6 border-b border-border">
+          <div className="max-w-5xl mx-auto flex flex-col gap-9">
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary">
+              O que acontece depois da compra
+            </span>
+            <h2 className="font-[family-name:var(--display-font)] text-[clamp(2rem,5vw,3.5rem)] font-extrabold tracking-[-0.05em] leading-[0.95]">
+              SEM MISTÉRIO, PASSO A PASSO.
+            </h2>
+            <div className="flex flex-wrap gap-4">
+              {[
+                "Você garante a vaga pelo checkout seguro.",
+                "Recebe o acesso e entra no grupo dos inscritos.",
+                "Participa do diagnóstico ao vivo dia 02, às 10h.",
+                "Sai com o plano pronto e começa a executar.",
+              ].map((t, i) => (
+                <div
+                  key={t}
+                  className="flex-[1_1_200px] border-l-[3px] border-primary py-1 pl-[18px]"
+                >
+                  <div className="font-mono text-[11px] text-primary tracking-[0.16em] mb-2">
+                    0{i + 1}
+                  </div>
+                  <p className="text-base leading-relaxed">{t}</p>
                 </div>
-                <div className="flex flex-col items-center gap-2">
-                  <Users className="size-6 text-primary" strokeWidth={2} />
-                  <span className="text-xs md:text-sm font-medium text-foreground">Acesso ao Grupo no Whatsapp</span>
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                  <ShieldCheck className="size-6 text-primary" strokeWidth={2} />
-                  <span className="text-xs md:text-sm font-medium text-foreground">7 dias de Garantia</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* FAQ */}
-        <section className="py-32 px-6 border-t border-border">
+        <section className="py-28 px-6">
           <div className="max-w-3xl mx-auto">
-            <h3 className="font-[family-name:var(--display-font)] text-3xl font-extrabold tracking-tighter mb-12 uppercase">
-              Perguntas Frequentes
+            <h3 className="font-[family-name:var(--display-font)] text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold tracking-[-0.05em] uppercase mb-10">
+              Perguntas frequentes
             </h3>
-            <div className="space-y-8">
-              <div className="pb-8 border-b border-border">
-                <h4 className="font-bold mb-4 uppercase text-sm tracking-widest">
-                  É para quem está começando?
-                </h4>
-                <p className="text-muted-foreground">
-                  Não. O Diagnóstico é para empresas que já vendem, mas sentem
-                  que o crescimento estagnou por falta de método.
-                </p>
-              </div>
-              <div className="pb-8 border-b border-border">
-                <h4 className="font-bold mb-4 uppercase text-sm tracking-widest">
-                  Terei acesso à gravação?
-                </h4>
-                <p className="text-muted-foreground">
-                  Sim. Todos os inscritos recebem o acesso vitalício à gravação
-                  e as ferramentas utilizadas no workshop, além de materiais
-                  complementares.
-                </p>
-              </div>
-              <div className="pb-8 border-b border-border">
-                <h4 className="font-bold mb-4 uppercase text-sm tracking-widest">
-                  Quanto tempo dura o workshop?
-                </h4>
-                <p className="text-muted-foreground">
-                  A experiência ao vivo tem duração aproximada de 3 horas, com
-                  análise prática e espaço para tirar dúvidas.
-                </p>
-              </div>
+            <div className="flex flex-col">
+              {faqs.map(([q, a], i) => (
+                <div
+                  key={q}
+                  className={`py-6 border-t border-border ${
+                    i === faqs.length - 1 ? "border-b" : ""
+                  }`}
+                >
+                  <h4 className="font-bold uppercase text-sm tracking-[0.12em] mb-2.5">
+                    {q}
+                  </h4>
+                  <p className="text-muted-foreground leading-relaxed">{a}</p>
+                </div>
+              ))}
             </div>
+          </div>
+        </section>
+
+        {/* Fechamento */}
+        <section className="py-32 px-6 border-t border-border text-center">
+          <div className="max-w-3xl mx-auto flex flex-col items-center gap-8">
+            <h2 className="font-[family-name:var(--display-font)] text-[clamp(2.1rem,5.5vw,4.1rem)] font-extrabold tracking-[-0.055em] leading-[0.92] text-balance">
+              O MAIOR RISCO NÃO É DESCOBRIR UM PROBLEMA. É CONTINUAR PERDENDO
+              DINHEIRO SEM SABER ONDE ELE ESTÁ.
+            </h2>
+            <p className="text-[19px] leading-relaxed text-muted-foreground max-w-[560px]">
+              São R$ 49,90 e 3 horas para saber exatamente onde mexer.
+            </p>
+            <CheckoutLink className="px-13 py-6 text-[19px] shadow-2xl shadow-primary/30">
+              Quero descobrir meu gargalo
+            </CheckoutLink>
+            <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+              02 de agosto · 10h Brasília · 7 dias de garantia
+            </span>
           </div>
         </section>
       </main>
 
       <footer className="py-12 px-6 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-6">
           <div className="font-[family-name:var(--display-font)] font-extrabold tracking-tighter text-lg">
             SHARK<span className="text-primary">CON</span>
           </div>
-          <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-            © 2026 SHARK CONSULTORIA. TODOS OS DIREITOS
-            RESERVADOS.
+          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+            © 2026 Shark Consultoria. Todos os direitos reservados.
           </div>
         </div>
       </footer>
