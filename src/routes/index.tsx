@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const consultorImage = { url: "/diagnostico-consultor.png" };
 
 const CHECKOUT_URL = "https://pay.hotmart.com/J102586899P";
-const EVENT_DATE = new Date("2026-08-02T10:00:00-03:00").getTime();
+const EVENT_DATE = new Date("2026-08-16T10:00:00-03:00").getTime();
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -98,7 +98,7 @@ function Countdown() {
         </div>
       ))}
       <div className="flex-[2_1_220px] flex items-center px-[18px] py-4 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground leading-relaxed">
-        As inscrições fecham quando a sala abrir, dia 02 às 10h.
+        AS INSCRIÇÕES FECHAM QUANDO A SALA ABRIR, DIA 16 ÀS 10H.
       </div>
     </div>
   );
@@ -205,9 +205,9 @@ const faqs = [
     "Quanto tempo dura?",
     "Cerca de 3 horas ao vivo, com análise prática e espaço para dúvidas.",
   ],
-  [
+    [
     "É online ou presencial?",
-    "Online e ao vivo, dia 02 de agosto às 10h de Brasília.",
+    "Online e ao vivo, dia 16 de agosto às 10h de Brasília.",
   ],
   [
     "É individual? Preciso levar a equipe?",
@@ -241,7 +241,7 @@ function Index() {
           </div>
           <div className="hidden md:flex gap-7 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
             <span className="text-primary animate-pulse">[ Ao vivo ]</span>
-            <span>02.08.2026</span>
+            <span>16.08.2026</span>
             <span>10:00 BRT</span>
           </div>
           <a
@@ -296,7 +296,7 @@ function Index() {
         {/* Strip */}
         <div className="border-y border-border bg-card px-6 py-3.5">
           <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-x-10 gap-y-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-            <span>02 de agosto · 10h Brasília</span>
+            <span>16 DE AGOSTO · 10H BRASÍLIA</span>
             <span>3 horas ao vivo</span>
             <span>Gravação vitalícia</span>
             <span className="text-primary">R$ 49,90</span>
@@ -638,7 +638,7 @@ function Index() {
               </CheckoutLink>
 
               <div className="mt-4.5 text-center font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
-                02 de agosto · 10h Brasília · Online
+                16 DE AGOSTO · 10H BRASÍLIA · ONLINE
               </div>
             </div>
 
@@ -662,7 +662,7 @@ function Index() {
               {[
                 "Você garante a vaga pelo checkout seguro.",
                 "Recebe o acesso e entra no grupo dos inscritos.",
-                "Participa do diagnóstico ao vivo dia 02, às 10h.",
+                "Participa do diagnóstico ao vivo dia 16, às 10h.",
                 "Sai com o plano pronto e começa a executar.",
               ].map((t, i) => (
                 <div
@@ -717,7 +717,7 @@ function Index() {
               Quero descobrir meu gargalo
             </CheckoutLink>
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-              02 de agosto · 10h Brasília · 7 dias de garantia
+              16 DE AGOSTO · 10H BRASÍLIA · 7 DIAS DE GARANTIA
             </span>
           </div>
         </section>
