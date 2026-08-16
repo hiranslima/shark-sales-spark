@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const consultorImage = { url: "/diagnostico-consultor.png" };
 
-const CHECKOUT_URL = "https://pay.hotmart.com/J102586899P";
+const CHECKOUT_URL = "https://pay.hotmart.com/J102586899P?off=2vjmy2lh&checkoutMode=10";
 const EVENT_DATE = new Date("2026-08-30T10:00:00-03:00").getTime();
 
 export const Route = createFileRoute("/")({
