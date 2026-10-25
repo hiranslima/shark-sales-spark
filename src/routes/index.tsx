@@ -241,7 +241,7 @@ function Index() {
           </div>
           <div className="hidden md:flex gap-7 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
             <span className="text-primary animate-pulse">[ Ao vivo ]</span>
-            <span>04.10.2026</span>
+            <span>28.11.2026</span>
             <span>10:00 BRT</span>
           </div>
           <a
