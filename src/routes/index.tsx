@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const consultorImage = { url: "/diagnostico-consultor.png" };
 
 const CHECKOUT_URL = "https://pay.hotmart.com/J102586899P?off=2vjmy2lh&checkoutMode=10";
-const EVENT_DATE = new Date("2026-10-04T10:00:00-03:00").getTime();
+const EVENT_DATE = new Date("2026-11-28T10:00:00-03:00").getTime();
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -98,7 +98,7 @@ function Countdown() {
         </div>
       ))}
       <div className="flex-[2_1_220px] flex items-center px-[18px] py-4 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground leading-relaxed">
-        AS INSCRIÇÕES FECHAM QUANDO A SALA ABRIR, DIA 04 ÀS 10H.
+        AS INSCRIÇÕES FECHAM QUANDO A SALA ABRIR, DIA 28 ÀS 10H.
       </div>
     </div>
   );
@@ -207,7 +207,7 @@ const faqs = [
   ],
     [
     "É online ou presencial?",
-    "Online e ao vivo, dia 04 de outubro às 10h de Brasília.",
+    "Online e ao vivo, dia 28 de novembro às 10h de Brasília.",
   ],
   [
     "É individual? Preciso levar a equipe?",
@@ -296,7 +296,7 @@ function Index() {
         {/* Strip */}
         <div className="border-y border-border bg-card px-6 py-3.5">
           <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-x-10 gap-y-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-            <span>04 DE OUTUBRO · 10H BRASÍLIA</span>
+            <span>28 DE NOVEMBRO · 10H BRASÍLIA</span>
             <span>3 horas ao vivo</span>
             <span>Gravação vitalícia</span>
             <span className="text-primary">R$ 49,90</span>
@@ -638,7 +638,7 @@ function Index() {
               </CheckoutLink>
 
               <div className="mt-4.5 text-center font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
-                04 DE OUTUBRO · 10H BRASÍLIA · ONLINE
+                28 DE NOVEMBRO · 10H BRASÍLIA · ONLINE
               </div>
             </div>
 
@@ -662,7 +662,7 @@ function Index() {
               {[
                 "Você garante a vaga pelo checkout seguro.",
                 "Recebe o acesso e entra no grupo dos inscritos.",
-                "Participa do diagnóstico ao vivo dia 04, às 10h.",
+                "Participa do diagnóstico ao vivo dia 28, às 10h.",
                 "Sai com o plano pronto e começa a executar.",
               ].map((t, i) => (
                 <div
@@ -717,7 +717,7 @@ function Index() {
               Quero descobrir meu gargalo
             </CheckoutLink>
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-              04 DE OUTUBRO · 10H BRASÍLIA · 7 DIAS DE GARANTIA
+              28 DE NOVEMBRO · 10H BRASÍLIA · 7 DIAS DE GARANTIA
             </span>
           </div>
         </section>
